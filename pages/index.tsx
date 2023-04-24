@@ -4,6 +4,7 @@ import { MongoClient } from "mongodb";
 import Comment from "@/models/types";
 
 import classes from "../styles/HomePage.module.css";
+import Container from "@/components/UI/Container";
 
 const HomePage: React.FC<{ comments: Comment[] }> = (props) => {
 	return (
@@ -14,16 +15,18 @@ const HomePage: React.FC<{ comments: Comment[] }> = (props) => {
 				<link rel="icon" href="/images/favicon-32x32.png" />
 			</Head>
 			<main className={classes.app}>
-				<ul>
+				<ul className={classes.comments_list}>
 					{props.comments.map((comment) => (
 						<li key={comment.id}>
-							<p>{comment.user.username}</p>
-							<p>{comment.content}</p>
+							<Container>
+								<p>{comment.user.username}</p>
+								<p>{comment.content}</p>
+							</Container>
 						</li>
 					))}
 				</ul>
 			</main>
-			<footer>
+			<footer style={{marginTop: "2em", color: "black"}}>
 				Challenge by{" "}
 				<a href="https://www.frontendmentor.io?ref=challenge" target="_blank">
 					Frontend Mentor
