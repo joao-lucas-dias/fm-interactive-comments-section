@@ -43,7 +43,7 @@ body {
 	min-height: 100vh;
 	padding: 2em 1em;
 
-	background-color: var(--color-neutral-light);
+	background-color: var(--color-neutral-lighter);
 }
 
 /* responsive images/videos */

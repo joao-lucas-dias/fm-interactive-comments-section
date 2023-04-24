@@ -1,12 +1,14 @@
+export interface User {
+	image: {
+		png: string;
+		webp: string;
+	};
+	username: string;
+}
+
 export interface Reply {
 	id: string;
-	user: {
-		img: {
-			png: string;
-			webp: string;
-		};
-		username: string;
-	};
+	user: User;
 	createdAt: string;
 	content: string;
 	replyingTo: string;
@@ -15,13 +17,7 @@ export interface Reply {
 
 export default interface Comment {
 	id: string;
-	user: {
-		img: {
-			png: string;
-			webp: string;
-		};
-		username: string;
-	};
+	user: User;
 	createdAt: string;
 	content: string;
 	score: number;

@@ -1,10 +1,19 @@
 import Head from "next/head";
 import { GetStaticProps } from "next";
 import { MongoClient } from "mongodb";
-import Comment from "@/models/types";
+import Comment, { User } from "@/models/types";
+import Container from "@/components/UI/Container";
 
 import classes from "../styles/HomePage.module.css";
-import Container from "@/components/UI/Container";
+import AddComment from "@/components/AddComment";
+
+const LOGGEDIN_USER: User = {
+	image: {
+		png: "/images/avatars/image-juliusomo.png",
+		webp: "/images/avatars/image-juliusomo.webp"
+	},
+	username: "juliusomo"
+};
 
 const HomePage: React.FC<{ comments: Comment[] }> = (props) => {
 	return (
@@ -25,8 +34,9 @@ const HomePage: React.FC<{ comments: Comment[] }> = (props) => {
 						</li>
 					))}
 				</ul>
+				<AddComment loggedinUser={LOGGEDIN_USER} type="comment" />
 			</main>
-			<footer style={{marginTop: "2em", color: "black"}}>
+			<footer style={{ marginTop: "2em", color: "black" }}>
 				Challenge by{" "}
 				<a href="https://www.frontendmentor.io?ref=challenge" target="_blank">
 					Frontend Mentor
