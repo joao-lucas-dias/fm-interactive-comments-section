@@ -55,25 +55,6 @@
   font-weight: 500;
 }
 
-.score_counter {
-  grid-row-start: 3;
-  grid-column-start: 1;
-  width: fit-content;
-  display: flex;
-  align-items: center;
-  gap: 1em;
-  padding: .65em .9em;
-  border-radius: 10px;
-  font-weight: 500;
-  color: var(--color-primary-blue);
-  background-color: var(--color-neutral-lighter);
-}
-
-.score_counter > button {
-  background: none;
-  border: none;
-}
-
 .actions {
   grid-row-start: 3;
   grid-column: 2 / 3;

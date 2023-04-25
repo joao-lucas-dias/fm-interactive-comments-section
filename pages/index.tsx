@@ -6,6 +6,7 @@ import AddComment from "@/components/AddComment";
 import Comment from "../components/Comments/Comment";
 
 import classes from "../styles/HomePage.module.css";
+import CommentsList from "@/components/Comments/CommentsList";
 
 const LOGGEDIN_USER: User = {
 	image: {
@@ -28,30 +29,7 @@ const HomePage: React.FC<{ comments: CommentType[] }> = (props) => {
 				<link rel="icon" href="/images/favicon-32x32.png" />
 			</Head>
 			<main className={classes.app}>
-				<ul className={classes.comments_list}>
-					{sortedComments.map((comment) => (
-						<>
-							<Comment
-								key={comment.id}
-								type="comment"
-								data={comment}
-								loggedinUser={LOGGEDIN_USER.username}
-							/>
-							{comment.replies.length > 0 && (
-								<ul className={classes.replies_list}>
-									{comment.replies.map((reply) => (
-										<Comment
-											key={reply.id}
-											type="reply"
-											data={reply}
-											loggedinUser={LOGGEDIN_USER.username}
-										/>
-									))}
-								</ul>
-							)}
-						</>
-					))}
-				</ul>
+				<CommentsList comments={sortedComments} loggedInUser={LOGGEDIN_USER.username} />
 				<AddComment loggedinUser={LOGGEDIN_USER} type="comment" />
 			</main>
 			<footer style={{ marginTop: "2em", color: "black" }}>
@@ -96,7 +74,8 @@ export const getStaticProps: GetStaticProps = async () => {
 	return {
 		props: {
 			comments: comments
-		}
+		},
+		revalidate: 1
 	};
 };
 
