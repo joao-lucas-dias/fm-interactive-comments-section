@@ -1,7 +1,7 @@
 import { User } from "@/models/types";
-import Container from "./UI/Container";
+import Container from "../UI/Container";
 import Image from "next/image";
-import IconButton from "./UI/IconButton";
+import IconButton from "../UI/IconButton";
 
 import classes from "./Comment.module.css";
 

@@ -3,7 +3,7 @@ import { GetStaticProps } from "next";
 import { MongoClient } from "mongodb";
 import { CommentType, User } from "@/models/types";
 import AddComment from "@/components/AddComment";
-import Comment from "@/components/Comment";
+import Comment from "../components/Comments/Comment";
 
 import classes from "../styles/HomePage.module.css";
 
@@ -16,6 +16,10 @@ const LOGGEDIN_USER: User = {
 };
 
 const HomePage: React.FC<{ comments: CommentType[] }> = (props) => {
+	const sortedComments: CommentType[] = props.comments.sort(
+		(comment1: CommentType, comment2: CommentType) => comment2.score - comment1.score
+	);
+
 	return (
 		<>
 			<Head>
@@ -25,7 +29,7 @@ const HomePage: React.FC<{ comments: CommentType[] }> = (props) => {
 			</Head>
 			<main className={classes.app}>
 				<ul className={classes.comments_list}>
-					{props.comments.map((comment) => (
+					{sortedComments.map((comment) => (
 						<>
 							<Comment
 								key={comment.id}
