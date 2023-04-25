@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { GetStaticProps } from "next";
 import { MongoClient } from "mongodb";
-import { CommentType, User } from "@/models/types";
+import { CommentType, Reply, User } from "@/models/types";
 import AddComment from "@/components/AddComment";
 import Comment from "../components/Comments/Comment";
 
@@ -64,7 +64,16 @@ export const getStaticProps: GetStaticProps = async () => {
 			user: comment.user,
 			createdAt: comment.createdAt,
 			content: comment.content,
-			replies: comment.replies,
+			replies: comment.replies.map((reply: Reply, idx: number) => {
+				return {
+					id: `${comment._id.toString()}_reply${idx}`,
+					user: reply.user,
+					createdAt: reply.createdAt,
+					content: reply.content,
+					replyingTo: reply.replyingTo,
+					score: reply.score
+				};
+			}),
 			score: comment.score
 		};
 	});

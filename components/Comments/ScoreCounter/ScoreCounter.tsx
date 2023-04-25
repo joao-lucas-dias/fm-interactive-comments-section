@@ -1,16 +1,9 @@
-import { useState } from "react";
 import classes from "./ScoreCounter.module.css";
 
-const ScoreCounter = () => {
-  const [score, setScore] = useState(0);
+const ScoreCounter: React.FC<{ score: number }> = (props) => {
+  const upVote = () => {};
 
-  const upVote = () => {
-    setScore((currValue) => currValue + 1);
-  };
-
-  const downVote = () => {
-    setScore((currValue) => currValue - 1);
-  };
+  const downVote = () => {};
 
 	return (
 		<div className={classes.score_counter}>
@@ -22,7 +15,7 @@ const ScoreCounter = () => {
 					/>
 				</svg>
 			</button>
-			<span>{score}</span>
+			<span>{props.score}</span>
 			<button onClick={downVote}>
 				<svg width="11" height="3" xmlns="http://www.w3.org/2000/svg">
 					<path

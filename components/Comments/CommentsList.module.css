@@ -3,11 +3,3 @@
   grid-row-gap: 1em;
   list-style: none;
 }
-
-.replies_list {
-  display: grid;
-  grid-row-gap: 1em;
-  padding-left: 1em;
-  list-style: none;
-  border-left: 2px solid var(--color-neutral-light);
-}

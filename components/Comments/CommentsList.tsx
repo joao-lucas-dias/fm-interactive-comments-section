@@ -14,20 +14,8 @@ const CommentsList: React.FC<{ comments: CommentType[]; loggedInUser: string }> 
 						key={comment.id}
 						type="comment"
 						data={comment}
-						loggedinUser={props.loggedInUser}
+						loggedInUser={props.loggedInUser}
 					/>
-					{comment.replies.length > 0 && (
-						<ul className={classes.replies_list}>
-							{comment.replies.map((reply) => (
-								<Comment
-									key={reply.id}
-									type="reply"
-									data={reply}
-									loggedinUser={props.loggedInUser}
-								/>
-							))}
-						</ul>
-					)}
 				</>
 			))}
 		</ul>

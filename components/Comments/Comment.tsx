@@ -1,4 +1,4 @@
-import { User } from "@/models/types";
+import { Reply, User } from "@/models/types";
 import Container from "../UI/Container";
 import Image from "next/image";
 import IconButton from "../UI/IconButton";
@@ -9,14 +9,14 @@ import ScoreCounter from "./ScoreCounter/ScoreCounter";
 const Comment: React.FC<{
 	type: "comment" | "reply";
 	data: any;
-	loggedinUser: string;
+	loggedInUser: string;
 }> = (props) => {
 	const user: User = props.data.user;
 	const replyingTo: string = props.data.replyingTo;
 	const { createdAt, content, score } = props.data;
 
 	return (
-		<li>
+		<li className={classes.wrapper}>
 			<Container>
 				<div className={classes.header}>
 					<Image
@@ -28,7 +28,7 @@ const Comment: React.FC<{
 					/>
 					<span className={classes.user}>
 						<span className={classes.user_name}>{user.username}</span>
-						{props.loggedinUser === user.username && (
+						{props.loggedInUser === user.username && (
 							<span className={classes.tag}>You</span>
 						)}
 					</span>
@@ -40,9 +40,9 @@ const Comment: React.FC<{
 					)}
 					<span className={classes.content}>{content}</span>
 				</div>
-				<ScoreCounter />
+				<ScoreCounter score={score} />
 				<div className={classes.actions}>
-					{props.loggedinUser === user.username ? (
+					{props.loggedInUser === user.username ? (
 						<>
 							<IconButton type="delete" />
 							<IconButton type="edit" />
@@ -52,6 +52,18 @@ const Comment: React.FC<{
 					)}
 				</div>
 			</Container>
+			{props.data.replies && props.data.replies.length > 0 && (
+				<ul key={`${props.data.id}_replies`} className={classes.replies_list}>
+					{props.data.replies.map((reply: Reply) => (
+						<Comment
+							key={reply.id}
+							type="reply"
+							data={reply}
+							loggedInUser={props.loggedInUser}
+						/>
+					))}
+				</ul>
+			)}
 		</li>
 	);
 };
