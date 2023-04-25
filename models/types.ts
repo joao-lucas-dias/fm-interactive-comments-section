@@ -15,7 +15,7 @@ export interface Reply {
 	score: number;
 }
 
-export default interface Comment {
+interface Comment {
 	id: string;
 	user: User;
 	createdAt: string;
@@ -23,3 +23,5 @@ export default interface Comment {
 	score: number;
 	replies: Reply[];
 }
+
+export type { Comment as CommentType };

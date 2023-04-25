@@ -1,11 +1,11 @@
 import Head from "next/head";
 import { GetStaticProps } from "next";
 import { MongoClient } from "mongodb";
-import Comment, { User } from "@/models/types";
-import Container from "@/components/UI/Container";
+import { CommentType, User } from "@/models/types";
+import AddComment from "@/components/AddComment";
+import Comment from "@/components/Comment";
 
 import classes from "../styles/HomePage.module.css";
-import AddComment from "@/components/AddComment";
 
 const LOGGEDIN_USER: User = {
 	image: {
@@ -15,7 +15,7 @@ const LOGGEDIN_USER: User = {
 	username: "juliusomo"
 };
 
-const HomePage: React.FC<{ comments: Comment[] }> = (props) => {
+const HomePage: React.FC<{ comments: CommentType[] }> = (props) => {
 	return (
 		<>
 			<Head>
@@ -26,12 +26,24 @@ const HomePage: React.FC<{ comments: Comment[] }> = (props) => {
 			<main className={classes.app}>
 				<ul className={classes.comments_list}>
 					{props.comments.map((comment) => (
-						<li key={comment.id}>
-							<Container>
-								<p>{comment.user.username}</p>
-								<p>{comment.content}</p>
-							</Container>
-						</li>
+						<>
+							<Comment
+								key={comment.id}
+								type="comment"
+								data={comment}
+								loggedinUser={LOGGEDIN_USER.username}
+							/>
+							<ul className={classes.replies_list}>
+								{comment.replies.map((reply) => (
+									<Comment
+										key={reply.id}
+										type="reply"
+										data={reply}
+										loggedinUser={LOGGEDIN_USER.username}
+									/>
+								))}
+							</ul>
+						</>
 					))}
 				</ul>
 				<AddComment loggedinUser={LOGGEDIN_USER} type="comment" />
@@ -62,7 +74,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
 	const data = await dataCollection.find().toArray();
 
-	const comments: Comment[] = data.map((comment) => {
+	const comments: CommentType[] = data.map((comment) => {
 		return {
 			id: comment._id.toString(),
 			user: comment.user,

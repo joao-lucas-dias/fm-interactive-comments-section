@@ -1,0 +1,17 @@
+.wrapper {
+  display: flex;
+  gap: .5em;
+  align-items: center;
+  text-transform: capitalize;
+  font-weight: 500;
+  background: none;
+  border: none;
+}
+
+.reply, .edit {
+  color: var(--color-primary-blue);
+}
+
+.delete {
+  color: var(--color-primary-red);
+}
