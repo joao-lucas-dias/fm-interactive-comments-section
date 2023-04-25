@@ -24,14 +24,15 @@
 
 .tag {
   display: flex;
-  justify-content: center;
   align-items: center;
-  padding: .25em .5em;
+  padding: .3em .5em;
   font-size: 12px;
   font-weight: 400;
   line-height: .9;
   border-radius: 2px;
+  text-align: center;
   text-transform: lowercase;
+  letter-spacing: 1px;
   color: var(--color-neutral-white);
   background-color: var(--color-primary-blue);
 }

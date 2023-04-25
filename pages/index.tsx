@@ -33,16 +33,18 @@ const HomePage: React.FC<{ comments: CommentType[] }> = (props) => {
 								data={comment}
 								loggedinUser={LOGGEDIN_USER.username}
 							/>
-							<ul className={classes.replies_list}>
-								{comment.replies.map((reply) => (
-									<Comment
-										key={reply.id}
-										type="reply"
-										data={reply}
-										loggedinUser={LOGGEDIN_USER.username}
-									/>
-								))}
-							</ul>
+							{comment.replies.length > 0 && (
+								<ul className={classes.replies_list}>
+									{comment.replies.map((reply) => (
+										<Comment
+											key={reply.id}
+											type="reply"
+											data={reply}
+											loggedinUser={LOGGEDIN_USER.username}
+										/>
+									))}
+								</ul>
+							)}
 						</>
 					))}
 				</ul>
