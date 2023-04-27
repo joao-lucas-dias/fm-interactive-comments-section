@@ -40,7 +40,7 @@ const Comment: React.FC<{
 					)}
 					<span className={classes.content}>{content}</span>
 				</div>
-				<ScoreCounter score={score} />
+				<ScoreCounter type={props.type} data={props.data} />
 				<div className={classes.actions}>
 					{props.loggedInUser === user.username ? (
 						<>

@@ -1,9 +1,17 @@
+import { useDispatch } from "react-redux";
 import classes from "./ScoreCounter.module.css";
+import { voteComment } from "@/store/commentsSlice";
 
-const ScoreCounter: React.FC<{ score: number }> = (props) => {
-  const upVote = () => {};
+const ScoreCounter: React.FC<{ type: "comment" | "reply"; data: any }> = (props) => {
+	const dispatch = useDispatch();
 
-  const downVote = () => {};
+	const upVote = () => {
+		dispatch(voteComment({ type: props.type, id: props.data.id, voteType: "upvote" }));
+	};
+
+	const downVote = () => {
+		dispatch(voteComment({ type: props.type, id: props.data.id, voteType: "downvote" }));
+	};
 
 	return (
 		<div className={classes.score_counter}>
@@ -15,7 +23,7 @@ const ScoreCounter: React.FC<{ score: number }> = (props) => {
 					/>
 				</svg>
 			</button>
-			<span>{props.score}</span>
+			<span>{props.data.score}</span>
 			<button onClick={downVote}>
 				<svg width="11" height="3" xmlns="http://www.w3.org/2000/svg">
 					<path
