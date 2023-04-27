@@ -14,9 +14,12 @@ const commentsSlice = createSlice({
 	initialState,
 	reducers: {
 		loadComments: (state, action: PayloadAction<CommentType[]>) => {
-			const sortedComments = action.payload.slice().sort(
-				(comment1: CommentType, comment2: CommentType) => comment2.score - comment1.score
-			);
+			const sortedComments = action.payload
+				.slice()
+				.sort(
+					(comment1: CommentType, comment2: CommentType) =>
+						comment2.score - comment1.score
+				);
 
 			state.comments = sortedComments;
 		},
@@ -58,10 +61,37 @@ const commentsSlice = createSlice({
 			);
 
 			state.comments = sortedComments;
+		},
+		deleteComment: (state, action: PayloadAction<{ id: string; type: string }>) => {
+			let comments: CommentType[] = [...state.comments];
+			let updatedComments: CommentType[];
+
+			if (action.payload.type === "comment") {
+				updatedComments = comments.filter((comment) => comment.id !== action.payload.id);
+			} else {
+				const commentId = action.payload.id.slice(0, action.payload.id.indexOf("_"));
+
+				updatedComments = comments.map((comment) => {
+					if (comment.id === commentId) {
+						const updatedReplies = comment.replies.filter(
+							(reply) => reply.id !== action.payload.id
+						);
+						return { ...comment, replies: updatedReplies };
+					} else {
+						return comment;
+					}
+				});
+			}
+
+			const sortedComments = updatedComments.sort(
+				(comment1: CommentType, comment2: CommentType) => comment2.score - comment1.score
+			);
+
+			state.comments = sortedComments;
 		}
 	}
 });
 
-export const { loadComments, voteComment } = commentsSlice.actions;
+export const { loadComments, voteComment, deleteComment } = commentsSlice.actions;
 
 export default commentsSlice.reducer;

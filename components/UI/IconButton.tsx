@@ -1,6 +1,6 @@
 import classes from "./IconButton.module.css";
 
-const IconButton: React.FC<{ type: string }> = (props) => {
+const IconButton: React.FC<{ type: string, onClick?: () => void }> = (props) => {
 	const svg =
 		props.type === "reply" ? (
 			<svg width="14" height="13" xmlns="http://www.w3.org/2000/svg">
@@ -28,7 +28,7 @@ const IconButton: React.FC<{ type: string }> = (props) => {
   const buttonClasses = `${classes.wrapper} ${props.type === "reply" ? classes.reply : props.type === "edit" ? classes.edit : classes.delete}`;
 
 	return (
-		<button className={buttonClasses}>
+		<button onClick={props.onClick} className={buttonClasses}>
 			{svg}
 			<span>{props.type}</span>
 		</button>

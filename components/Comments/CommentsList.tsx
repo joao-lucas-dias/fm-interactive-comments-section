@@ -12,6 +12,7 @@ const CommentsList: React.FC<{ comments: CommentType[]; loggedInUser: string }> 
 				<Comment
 					key={comment.id}
 					type="comment"
+					parentComment={comment}
 					data={comment}
 					loggedInUser={props.loggedInUser}
 				/>
