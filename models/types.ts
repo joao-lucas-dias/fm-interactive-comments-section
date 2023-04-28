@@ -24,4 +24,4 @@ interface Comment {
 	replies: Reply[];
 }
 
-export type { Comment as CommentType };
+export type { Comment as CommentType, Reply as ReplyType };

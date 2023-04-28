@@ -47,7 +47,8 @@ const commentsSlice = createSlice({
 					comment!.score--;
 				}
 			} else {
-				const reply = comment!.replies.find((reply) => reply.id === action.payload.id);
+				const replyId = action.payload.id;
+				const reply = comment!.replies.find((reply) => reply.id === replyId);
 
 				if (action.payload.voteType === "upvote") {
 					reply!.score++;

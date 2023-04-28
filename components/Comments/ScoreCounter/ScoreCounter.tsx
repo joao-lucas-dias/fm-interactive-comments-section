@@ -1,25 +1,43 @@
 import { useDispatch } from "react-redux";
 import classes from "./ScoreCounter.module.css";
 import { voteComment } from "@/store/commentsSlice";
-import { CommentType, Reply } from "@/models/types";
+import { CommentType, ReplyType } from "@/models/types";
 
-const ScoreCounter: React.FC<{ type: "comment" | "reply"; data: any }> = (props) => {
+const ScoreCounter: React.FC<{
+	type: "comment" | "reply";
+	data: any;
+	parentComment?: CommentType;
+}> = (props) => {
 	const dispatch = useDispatch();
 
-	const vote = async (type: "upvote" | "downvote") => {
-		const comment: CommentType | Reply = { ...props.data };
+	const vote = async (voteType: "upvote" | "downvote") => {
+		dispatch(voteComment({ type: props.type, id: props.data.id, voteType: voteType }));
 
-		if (type === "upvote") {
-			comment.score++;
+		let updatedComment: CommentType;
+
+		if (props.type === "comment") {
+			updatedComment = { ...props.data };
+			updatedComment.score += voteType === "upvote" ? 1 : -1;
 		} else {
-			comment.score--;
+			const parentComment = { ...props.parentComment! };
+			const replyIndex = parentComment.replies.findIndex(
+				(reply) => reply.id === props.data.id
+			);
+			const updatedReply = {
+				...parentComment.replies[replyIndex],
+				score: parentComment.replies[replyIndex].score + (voteType === "upvote" ? 1 : -1)
+			};
+			const updatedReplies = [
+				...parentComment.replies.slice(0, replyIndex),
+				updatedReply,
+				...parentComment.replies.slice(replyIndex + 1)
+			];
+			updatedComment = { ...parentComment, replies: updatedReplies };
 		}
-
-		dispatch(voteComment({ type: props.type, id: props.data.id, voteType: type }));
 
 		const response = await fetch("/api/comments", {
 			method: "PUT",
-			body: JSON.stringify(comment),
+			body: JSON.stringify(updatedComment),
 			headers: {
 				"Content-Type": "application/json"
 			}

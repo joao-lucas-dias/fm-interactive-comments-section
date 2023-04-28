@@ -11,9 +11,8 @@ const CommentsList: React.FC<{ comments: CommentType[]; loggedInUser: string }> 
 			{props.comments.map((comment) => (
 				<Comment
 					key={comment.id}
-					type="comment"
 					parentComment={comment}
-					data={comment}
+					commentData={comment}
 					loggedInUser={props.loggedInUser}
 				/>
 			))}

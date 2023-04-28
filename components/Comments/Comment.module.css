@@ -11,11 +11,6 @@
   color: var(--color-neutral-dark);
 }
 
-.reply_tag {
-  color: var(--color-primary-blue);
-  font-weight: 500;
-}
-
 .replies_list {
   display: grid;
   grid-row-gap: 1em;

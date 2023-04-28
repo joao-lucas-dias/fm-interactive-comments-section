@@ -6,22 +6,22 @@ import classes from "./Actions.module.css";
 import { useDispatch } from "react-redux";
 
 const Actions: React.FC<{
-	commentType: "comment" | "reply";
+	type: "comment" | "reply";
 	parentComment: CommentType | null;
 	user: User;
 	loggedInUser: string;
-	data: any;
+	id: string;
 }> = (props) => {
 	const dispatch = useDispatch();
 
 	const deleteCommentHandler = async () => {
-		dispatch(deleteComment({ id: props.data.id, type: props.commentType }));
+		dispatch(deleteComment({ id: props.id, type: props.type }));
 
-		if (props.commentType === "reply") {
+		if (props.type === "reply") {
 			const comment: CommentType = props.parentComment!;
 			const updatedComment: CommentType = {
 				...comment,
-				replies: comment.replies.filter((reply) => reply.id !== props.data.id)
+				replies: comment.replies.filter((reply) => reply.id !== props.id)
 			};
 
 			const response = await fetch("/api/comments", {
@@ -34,10 +34,7 @@ const Actions: React.FC<{
 
 			const data = await response.json();
 		} else {
-			const comment: CommentType = props.data;
-			console.log("data: " + props.data.id);
-
-			const response = await fetch(`/api/comments/${comment.id}`, {
+			const response = await fetch(`/api/comments/${props.id}`, {
 				method: "DELETE"
 			});
 
