@@ -30,3 +30,7 @@
 	color: var(--color-neutral-white);
 	background-color: var(--color-primary-blue);
 }
+
+.button:disabled {
+	background-color: var(--color-neutral-light);
+}

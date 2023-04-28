@@ -69,7 +69,7 @@ const AddReply: React.FC<{
 				width={2000}
 				height={2000}
 			/>
-			<button onClick={addReplyHandler} className={classes.button}>
+			<button onClick={addReplyHandler} disabled={enteredText.replace(`@${props.replyingTo}, `, "").length === 0} className={classes.button}>
 				Reply
 			</button>
 		</Container>

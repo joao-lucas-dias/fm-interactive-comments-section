@@ -13,6 +13,7 @@
 }
 
 .score_counter > button {
+  height: 100%;
   background: none;
   border: none;
 }

@@ -58,7 +58,7 @@ const AddComment: React.FC<{
 				width={2000}
 				height={2000}
 			/>
-			<button onClick={addCommentHandler} className={classes.button}>
+			<button onClick={addCommentHandler} disabled={enteredText.length === 0} className={classes.button}>
 				Send
 			</button>
 		</Container>
