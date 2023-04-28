@@ -10,8 +10,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
 	if (req.method === "POST") {
 		const comment = req.body;
+
 		const result = await commentsCollection.insertOne(comment);
-		res.status(200).json({ message: "Comment added successfully!" });
+		
+		res.status(200).json({ commentId: result.insertedId, message: "Comment added successfully!" });
 	} else if (req.method === "PUT") {
 		const updatedComment: CommentType = req.body;
 
@@ -19,6 +21,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 			{ _id: { $eq: new ObjectId(updatedComment.id) } },
 			updatedComment
 		);
+
 		res.status(201).json({ message: "Comment updated successfully!" });
 	}
 

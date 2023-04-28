@@ -23,6 +23,17 @@ const commentsSlice = createSlice({
 
 			state.comments = sortedComments;
 		},
+		addComment: (state, action: PayloadAction<CommentType>) => {
+			const comments = [...state.comments];
+
+			comments.push(action.payload);
+
+			const sortedComments = comments.sort(
+				(comment1: CommentType, comment2: CommentType) => comment2.score - comment1.score
+			);
+
+			state.comments = sortedComments;
+		},
 		voteComment: (
 			state,
 			action: PayloadAction<{
@@ -93,6 +104,7 @@ const commentsSlice = createSlice({
 	}
 });
 
-export const { loadComments, voteComment, deleteComment } = commentsSlice.actions;
+export const { loadComments, addComment, voteComment, deleteComment } =
+	commentsSlice.actions;
 
 export default commentsSlice.reducer;

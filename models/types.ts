@@ -7,7 +7,7 @@ export interface User {
 }
 
 export interface Reply {
-	id: string;
+	id?: string;
 	user: User;
 	createdAt: string;
 	content: string;
@@ -16,7 +16,7 @@ export interface Reply {
 }
 
 interface Comment {
-	id: string;
+	id?: string;
 	user: User;
 	createdAt: string;
 	content: string;
