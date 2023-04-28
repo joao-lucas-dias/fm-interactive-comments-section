@@ -1,4 +1,4 @@
-import { CommentType } from "@/models/types";
+import { CommentType, ReplyType } from "@/models/types";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 type State = {
@@ -34,7 +34,28 @@ const commentsSlice = createSlice({
 
 			state.comments = sortedComments;
 		},
-		voteComment: (
+		addReplyAction: (state, action: PayloadAction<ReplyType>) => {
+			const comments = [...state.comments];
+			const parentComment: CommentType = action.payload.parentComment;
+
+			const updatedComments: CommentType[] = comments.map((comment) => {
+				if (comment.id === parentComment.id) {
+					const updatedReplies = [...comment.replies, action.payload];
+
+					return {
+						...comment,
+						replies: updatedReplies
+					}
+				}
+
+				return comment;
+			});
+
+			// TODO: sort replies
+
+			state.comments = updatedComments;
+		},
+		voteAction: (
 			state,
 			action: PayloadAction<{
 				type: "comment" | "reply";
@@ -74,7 +95,7 @@ const commentsSlice = createSlice({
 
 			state.comments = sortedComments;
 		},
-		deleteComment: (state, action: PayloadAction<{ id: string; type: string }>) => {
+		deleteAction: (state, action: PayloadAction<{ id: string; type: string }>) => {
 			let comments: CommentType[] = [...state.comments];
 			let updatedComments: CommentType[];
 
@@ -104,7 +125,6 @@ const commentsSlice = createSlice({
 	}
 });
 
-export const { loadComments, addComment, voteComment, deleteComment } =
-	commentsSlice.actions;
+export const { loadComments, addComment, addReplyAction, voteAction, deleteAction } = commentsSlice.actions;
 
 export default commentsSlice.reducer;

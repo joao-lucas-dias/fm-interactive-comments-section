@@ -1,7 +1,8 @@
 import { useDispatch } from "react-redux";
+import { CommentType } from "@/models/types";
+import { voteAction } from "@/store/commentsSlice";
+
 import classes from "./ScoreCounter.module.css";
-import { voteComment } from "@/store/commentsSlice";
-import { CommentType, ReplyType } from "@/models/types";
 
 const ScoreCounter: React.FC<{
 	type: "comment" | "reply";
@@ -11,7 +12,7 @@ const ScoreCounter: React.FC<{
 	const dispatch = useDispatch();
 
 	const vote = async (voteType: "upvote" | "downvote") => {
-		dispatch(voteComment({ type: props.type, id: props.data.id, voteType: voteType }));
+		dispatch(voteAction({ type: props.type, id: props.data.id, voteType: voteType }));
 
 		let updatedComment: CommentType;
 

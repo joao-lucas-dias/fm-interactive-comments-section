@@ -1,9 +1,9 @@
-import { CommentType } from "@/models/types";
+import { CommentType, User } from "@/models/types";
 import Comment from "./Comment";
 
 import classes from "./CommentsList.module.css";
 
-const CommentsList: React.FC<{ comments: CommentType[]; loggedInUser: string }> = (
+const CommentsList: React.FC<{ comments: CommentType[]; loggedInUser: User }> = (
 	props
 ) => {
 	return (
@@ -11,7 +11,6 @@ const CommentsList: React.FC<{ comments: CommentType[]; loggedInUser: string }> 
 			{props.comments.map((comment) => (
 				<Comment
 					key={comment.id}
-					parentComment={comment}
 					commentData={comment}
 					loggedInUser={props.loggedInUser}
 				/>

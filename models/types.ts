@@ -7,16 +7,17 @@ export interface User {
 }
 
 export interface Reply {
-	id?: string;
+	id: string;
 	user: User;
 	createdAt: string;
 	content: string;
 	replyingTo: string;
+	parentComment: Comment;
 	score: number;
 }
 
 interface Comment {
-	id?: string;
+	id: string;
 	user: User;
 	createdAt: string;
 	content: string;

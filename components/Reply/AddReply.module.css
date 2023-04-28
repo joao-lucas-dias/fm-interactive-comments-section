@@ -1,0 +1,32 @@
+.image {
+	width: 35px;
+	height: 35px;
+	align-self: center;
+}
+
+.textarea {
+	grid-column-start: 1;
+	grid-column-end: 3;
+	padding: 1em 1.5em;
+	resize: none;
+	border: 1px solid var(--color-neutral-light);
+	border-radius: 5px;
+	background: none;
+	color: var(--color-neutral-darker);
+}
+
+.textarea:focus-visible {
+	outline: 1px solid var(--color-neutral-darker);
+}
+
+.button {
+	justify-self: end;
+	width: min-content;
+	padding: 1em 2.25em;
+	border: none;
+	border-radius: 10px;
+	text-transform: uppercase;
+	font-weight: 500;
+	color: var(--color-neutral-white);
+	background-color: var(--color-primary-blue);
+}

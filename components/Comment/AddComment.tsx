@@ -1,13 +1,15 @@
 import Image from "next/image";
-import Container from "./UI/Container";
-import { CommentType, User } from "@/models/types";
+import Container from "../UI/Container";
+import { User } from "@/models/types";
 import { ChangeEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addComment } from "@/store/commentsSlice";
 
 import classes from "./AddComment.module.css";
 
-const AddComment: React.FC<{ loggedinUser: User; type: string }> = (props) => {
+const AddComment: React.FC<{
+	loggedinUser: User;
+}> = (props) => {
 	const [enteredText, setEnteredText] = useState("");
 	const dispatch = useDispatch();
 
@@ -16,7 +18,7 @@ const AddComment: React.FC<{ loggedinUser: User; type: string }> = (props) => {
 	};
 
 	const addCommentHandler = async () => {
-		const newComment: CommentType = {
+		const newComment = {
 			user: props.loggedinUser,
 			createdAt: "10 min ago",
 			content: enteredText,
@@ -34,16 +36,17 @@ const AddComment: React.FC<{ loggedinUser: User; type: string }> = (props) => {
 
 		const data = await response.json();
 
-		dispatch(addComment({
-			id: data.commentId,
-			...newComment
-		}));
+		dispatch(
+			addComment({
+				id: data.commentId,
+				...newComment
+			})
+		);
 	};
 
 	return (
 		<Container>
 			<textarea
-				value={enteredText}
 				placeholder="Add a comment..."
 				onChange={(event) => enterTextHandler(event)}
 				className={classes.textarea}
@@ -56,7 +59,7 @@ const AddComment: React.FC<{ loggedinUser: User; type: string }> = (props) => {
 				height={2000}
 			/>
 			<button onClick={addCommentHandler} className={classes.button}>
-				{props.type === "comment" ? "Send" : "Reply"}
+				Send
 			</button>
 		</Container>
 	);
