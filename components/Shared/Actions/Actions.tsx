@@ -11,6 +11,7 @@ const Actions: React.FC<{
 	loggedInUser: string;
 	parentComment?: CommentType;
 	onReplyClick: () => void;
+	onEditClick: () => void;
 }> = (props) => {
 	const dispatch = useDispatch();
 
@@ -19,6 +20,10 @@ const Actions: React.FC<{
 	const addReplyHandler = () => {
 		props.onReplyClick();
 	};
+
+	const editContentHandler = () => {
+		props.onEditClick();
+	}
 
 	const deleteActionHandler = async () => {
 		dispatch(deleteAction({ id: id, type: props.type }));
@@ -53,7 +58,7 @@ const Actions: React.FC<{
 			{props.loggedInUser === user.username ? (
 				<>
 					<IconButton type="delete" onClick={deleteActionHandler} />
-					<IconButton type="edit" />
+					<IconButton type="edit" onClick={editContentHandler} />
 				</>
 			) : (
 				<IconButton type="reply" onClick={addReplyHandler} />

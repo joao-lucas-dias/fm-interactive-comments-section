@@ -6,11 +6,6 @@
 	color: var(--color-neutral-dark);
 }
 
-.reply_tag {
-	color: var(--color-primary-blue);
-	font-weight: 500;
-}
-
 .replying {
 	display: grid;
 	grid-row-gap: 0.5em;

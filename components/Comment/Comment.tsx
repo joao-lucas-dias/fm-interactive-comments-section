@@ -8,12 +8,14 @@ import { useState } from "react";
 import AddReply from "../Reply/AddReply";
 
 import classes from "./Comment.module.css";
+import Content from "../Shared/Content/Content";
 
 const Comment: React.FC<{
 	commentData: CommentType;
 	loggedInUser: User;
 }> = (props) => {
 	const [replying, setReplying] = useState(false);
+	const [editing, setEditing] = useState(false);
 
 	const { id, user, createdAt, content, replies } = props.commentData;
 
@@ -26,14 +28,23 @@ const Comment: React.FC<{
 						loggedInUser={props.loggedInUser.username}
 						createdAt={createdAt}
 					/>
-					<p className={classes.body}>{content}</p>
-					<ScoreCounter type="comment" data={props.commentData} />
-					<Actions
+					<Content
 						type="comment"
+						editing={editing}
 						data={props.commentData}
-						loggedInUser={props.loggedInUser.username}
-						onReplyClick={() => setReplying(true)}
+						replyingTo={user.username}
+						onContentUpdated={() => setEditing(false)}
 					/>
+					<ScoreCounter type="comment" data={props.commentData} />
+					{!editing && !replying && (
+						<Actions
+							type="comment"
+							data={props.commentData}
+							loggedInUser={props.loggedInUser.username}
+							onReplyClick={() => setReplying(true)}
+							onEditClick={() => setEditing(true)}
+						/>
+					)}
 				</Container>
 				{replying && (
 					<AddReply
@@ -50,7 +61,6 @@ const Comment: React.FC<{
 						<Reply
 							key={reply.id}
 							loggedInUser={props.loggedInUser}
-							parentComment={props.commentData}
 							replyData={reply}
 						/>
 					))}

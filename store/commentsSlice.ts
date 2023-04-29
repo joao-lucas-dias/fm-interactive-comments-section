@@ -45,13 +45,56 @@ const commentsSlice = createSlice({
 					return {
 						...comment,
 						replies: updatedReplies
-					}
+					};
 				}
 
 				return comment;
 			});
 
 			// TODO: sort replies
+
+			state.comments = updatedComments;
+		},
+		editAction: (
+			state,
+			action: PayloadAction<{ type: string; data: any; updatedContent: string }>
+		) => {
+			const comments = [...state.comments];
+			let updatedComments: CommentType[];
+
+			if (action.payload.type === "comment") {
+				updatedComments = comments.map((comment) => {
+					if (comment.id === action.payload.data.id) {
+						return {
+							...comment,
+							content: action.payload.updatedContent
+						};
+					}
+
+					return comment;
+				});
+			} else {
+				updatedComments = comments.map((comment) => {
+					if (comment.id === action.payload.data.parentComment.id) {
+						const updatedReplies = comment.replies.map((reply) => {
+							if (reply.id === action.payload.data.id) {
+								return {
+									...reply,
+									content: action.payload.updatedContent
+								};
+							}
+							return reply;
+						});
+
+						return {
+							...comment,
+							replies: updatedReplies
+						};
+					}
+
+					return comment;
+				});
+			}
 
 			state.comments = updatedComments;
 		},
@@ -125,6 +168,13 @@ const commentsSlice = createSlice({
 	}
 });
 
-export const { loadComments, addComment, addReplyAction, voteAction, deleteAction } = commentsSlice.actions;
+export const {
+	loadComments,
+	addComment,
+	addReplyAction,
+	editAction,
+	voteAction,
+	deleteAction
+} = commentsSlice.actions;
 
 export default commentsSlice.reducer;
