@@ -63,20 +63,13 @@ export const getStaticProps: GetStaticProps = async () => {
 
 	const comments: CommentType[] = data
 		.map((comment) => {
-			const replies = comment.replies.map((reply: ReplyType, idx: number) => {
-				return {
-					...reply,
-					id: `${comment._id.toString()}_reply${idx + 1}`
-				}
-			})
-			 
 			return {
 				id: comment._id.toString(),
 				user: comment.user,
 				createdAt: comment.createdAt,
 				content: comment.content,
 				score: comment.score,
-				replies: replies
+				replies: comment.replies
 			}
 		});
 

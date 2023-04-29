@@ -12,7 +12,6 @@ export interface Reply {
 	createdAt: string;
 	content: string;
 	replyingTo: string;
-	parentComment: Comment;
 	score: number;
 }
 

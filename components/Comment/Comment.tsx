@@ -6,9 +6,9 @@ import Actions from "../Shared/Actions/Actions";
 import Reply from "../Reply/Reply";
 import { useState } from "react";
 import AddReply from "../Reply/AddReply";
+import Content from "../Shared/Content/Content";
 
 import classes from "./Comment.module.css";
-import Content from "../Shared/Content/Content";
 
 const Comment: React.FC<{
 	commentData: CommentType;
@@ -17,7 +17,7 @@ const Comment: React.FC<{
 	const [replying, setReplying] = useState(false);
 	const [editing, setEditing] = useState(false);
 
-	const { id, user, createdAt, content, replies } = props.commentData;
+	const { id, user, createdAt, replies } = props.commentData;
 
 	return (
 		<li className={classes.wrapper}>
@@ -32,7 +32,6 @@ const Comment: React.FC<{
 						type="comment"
 						editing={editing}
 						data={props.commentData}
-						replyingTo={user.username}
 						onContentUpdated={() => setEditing(false)}
 					/>
 					<ScoreCounter type="comment" data={props.commentData} />
@@ -62,6 +61,7 @@ const Comment: React.FC<{
 							key={reply.id}
 							loggedInUser={props.loggedInUser}
 							replyData={reply}
+							parentComment={props.commentData}
 						/>
 					))}
 				</ul>

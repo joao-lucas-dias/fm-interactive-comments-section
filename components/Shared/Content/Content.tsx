@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { editAction } from "@/store/commentsSlice";
-import { CommentType, ReplyType } from "@/models/types";
+import { CommentType } from "@/models/types";
 
 import classes from "./Content.module.css";
 
@@ -10,7 +10,7 @@ const Content: React.FC<{
 	editing: boolean;
 	data: any;
 	parentComment?: CommentType;
-	replyingTo: string;
+	replyingTo?: string;
 	onContentUpdated: () => void;
 }> = (props) => {
 	const dispatch = useDispatch();
@@ -21,14 +21,12 @@ const Content: React.FC<{
 	};
 
 	const editContentHandler = async () => {
-		// TODO: update changes on Redux
 		dispatch(
 			editAction({ type: props.type, data: props.data, updatedContent: enteredText })
 		);
 
 		props.onContentUpdated();
 
-		// TODO: persist changes on mongodb
 		let updatedComment: CommentType;
 
 		if (props.type === "comment") {

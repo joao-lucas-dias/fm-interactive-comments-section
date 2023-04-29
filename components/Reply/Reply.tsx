@@ -12,11 +12,12 @@ import classes from "./Reply.module.css";
 const Reply: React.FC<{
 	loggedInUser: User;
 	replyData: ReplyType;
+	parentComment: CommentType;
 }> = (props) => {
 	const [replying, setReplying] = useState(false);
 	const [editing, setEditing] = useState(false);
 
-	const { user, content, replyingTo, createdAt, parentComment } = props.replyData;
+	const { user, replyingTo, createdAt } = props.replyData;
 
 	return (
 		<li className={classes.replying}>
@@ -30,21 +31,21 @@ const Reply: React.FC<{
 					type="reply"
 					editing={editing}
 					data={props.replyData}
-					parentComment={parentComment}
+					parentComment={props.parentComment}
 					replyingTo={replyingTo}
 					onContentUpdated={() => setEditing(false)}
 				/>
 				<ScoreCounter
 					type="reply"
 					data={props.replyData}
-					parentComment={parentComment}
+					parentComment={props.parentComment}
 				/>
 				{!editing && !replying && (
 					<Actions
 						type="reply"
 						data={props.replyData}
 						loggedInUser={props.loggedInUser.username}
-						parentComment={parentComment}
+						parentComment={props.parentComment}
 						onReplyClick={() => setReplying(true)}
 						onEditClick={() => setEditing(true)}
 					/>
@@ -53,8 +54,8 @@ const Reply: React.FC<{
 			{replying && (
 				<AddReply
 					loggedinUser={props.loggedInUser}
-					parentComment={parentComment}
-					replyingTo={replyingTo}
+					parentComment={props.parentComment}
+					replyingTo={user.username}
 					onReplyAdded={() => setReplying(false)}
 				/>
 			)}
