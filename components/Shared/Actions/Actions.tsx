@@ -1,7 +1,5 @@
 import IconButton from "@/components/UI/IconButton";
 import { CommentType } from "@/models/types";
-import { deleteAction } from "@/store/commentsSlice";
-import { useDispatch } from "react-redux";
 
 import classes from "./Actions.module.css";
 
@@ -12,56 +10,17 @@ const Actions: React.FC<{
 	parentComment?: CommentType;
 	onReplyClick: () => void;
 	onEditClick: () => void;
+	onDeleteClick: () => void;
 }> = (props) => {
-	const dispatch = useDispatch();
-
-	const { id, user } = props.data;
-
-	const addReplyHandler = () => {
-		props.onReplyClick();
-	};
-
-	const editContentHandler = () => {
-		props.onEditClick();
-	}
-
-	const deleteActionHandler = async () => {
-		dispatch(deleteAction({ id: id, type: props.type }));
-
-		if (props.type === "reply") {
-			const parentComment: CommentType = props.parentComment!;
-			const updatedComment: CommentType = {
-				...parentComment,
-				replies: parentComment.replies.filter((reply) => reply.id !== id)
-			};
-
-			const response = await fetch("/api/comments", {
-				method: "PUT",
-				body: JSON.stringify(updatedComment),
-				headers: {
-					"Content-Type": "application/json"
-				}
-			});
-
-			const data = await response.json();
-		} else {
-			const response = await fetch(`/api/comments/${id}`, {
-				method: "DELETE"
-			});
-
-			const data = await response.json();
-		}
-	};
-
 	return (
 		<div className={classes.actions}>
-			{props.loggedInUser === user.username ? (
+			{props.loggedInUser === props.data.user.username ? (
 				<>
-					<IconButton type="delete" onClick={deleteActionHandler} />
-					<IconButton type="edit" onClick={editContentHandler} />
+					<IconButton type="delete" onClick={props.onDeleteClick} />
+					<IconButton type="edit" onClick={props.onEditClick} />
 				</>
 			) : (
-				<IconButton type="reply" onClick={addReplyHandler} />
+				<IconButton type="reply" onClick={props.onReplyClick} />
 			)}
 		</div>
 	);

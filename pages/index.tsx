@@ -1,11 +1,11 @@
 import { loadComments } from "@/store/commentsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Head from "next/head";
 import { GetStaticProps } from "next";
 import { MongoClient } from "mongodb";
-import { CommentType, ReplyType, User } from "@/models/types";
+import { CommentType, User } from "@/models/types";
 import AddComment from "@/components/Comment/AddComment";
 import CommentsList from "@/components/Comment/CommentsList";
 
@@ -37,7 +37,10 @@ const HomePage: React.FC<{ comments: CommentType[] }> = (props) => {
 				<link rel="icon" href="/images/favicon-32x32.png" />
 			</Head>
 			<main className={classes.app}>
-				<CommentsList comments={comments} loggedInUser={LOGGEDIN_USER} />
+				<CommentsList
+					comments={comments}
+					loggedInUser={LOGGEDIN_USER}
+				/>
 				<AddComment loggedinUser={LOGGEDIN_USER} />
 			</main>
 			<footer style={{ marginTop: "2em", color: "black" }}>
@@ -61,17 +64,16 @@ export const getStaticProps: GetStaticProps = async () => {
 	const dataCollection = db.collection("comments");
 	const data = await dataCollection.find().toArray();
 
-	const comments: CommentType[] = data
-		.map((comment) => {
-			return {
-				id: comment._id.toString(),
-				user: comment.user,
-				createdAt: comment.createdAt,
-				content: comment.content,
-				score: comment.score,
-				replies: comment.replies
-			}
-		});
+	const comments: CommentType[] = data.map((comment) => {
+		return {
+			id: comment._id.toString(),
+			user: comment.user,
+			createdAt: comment.createdAt,
+			content: comment.content,
+			score: comment.score,
+			replies: comment.replies
+		};
+	});
 
 	client.close();
 
