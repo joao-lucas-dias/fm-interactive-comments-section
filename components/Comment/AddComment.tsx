@@ -5,7 +5,7 @@ import { ChangeEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addComment } from "@/store/commentsSlice";
 
-import classes from "./AddComment.module.css";
+import shared_classes from "../../styles/shared.module.css";
 
 const AddComment: React.FC<{
 	loggedinUser: User;
@@ -42,23 +42,30 @@ const AddComment: React.FC<{
 				...newComment
 			})
 		);
+
+		setEnteredText("");
 	};
 
 	return (
 		<Container>
 			<textarea
 				placeholder="Add a comment..."
+				value={enteredText}
 				onChange={(event) => enterTextHandler(event)}
-				className={classes.textarea}
+				className={shared_classes.textarea}
 			></textarea>
 			<Image
 				src={props.loggedinUser.image.webp}
 				alt="User profile picture."
-				className={classes.image}
+				className={shared_classes.image}
 				width={2000}
 				height={2000}
 			/>
-			<button onClick={addCommentHandler} disabled={enteredText.length === 0} className={classes.button}>
+			<button
+				onClick={addCommentHandler}
+				disabled={enteredText.length === 0}
+				className={shared_classes.button}
+			>
 				Send
 			</button>
 		</Container>

@@ -12,25 +12,10 @@
 	padding-inline: 1em;
 }
 
-.container {
-	display: grid;
-	grid-row-gap: 1em;
-	padding: 1.5em;
-	border-radius: 10px;
-	font-size: 16px;
-	background-color: var(--color-neutral-white);
-}
-
 .header {
 	font-size: 20px;
 	font-weight: 500;
 	color: var(--color-neutral-darker);
-}
-
-.body {
-	font-weight: 400;
-	line-height: 1.5;
-	color: var(--color-neutral-dark);
 }
 
 .actions {

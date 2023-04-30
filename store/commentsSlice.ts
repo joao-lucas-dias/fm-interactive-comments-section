@@ -34,13 +34,16 @@ const commentsSlice = createSlice({
 
 			state.comments = sortedComments;
 		},
-		addReplyAction: (state, action: PayloadAction<ReplyType>) => {
+		addReplyAction: (
+			state,
+			action: PayloadAction<{ parentComment: CommentType; replyData: ReplyType }>
+		) => {
 			const comments = [...state.comments];
 			const parentComment: CommentType = action.payload.parentComment;
 
 			const updatedComments: CommentType[] = comments.map((comment) => {
 				if (comment.id === parentComment.id) {
-					const updatedReplies = [...comment.replies, action.payload];
+					const updatedReplies = [...comment.replies, action.payload.replyData];
 
 					return {
 						...comment,
@@ -57,7 +60,12 @@ const commentsSlice = createSlice({
 		},
 		editAction: (
 			state,
-			action: PayloadAction<{ type: string; data: any; updatedContent: string }>
+			action: PayloadAction<{
+				type: string;
+				data: any;
+				parentComment?: CommentType;
+				updatedContent: string;
+			}>
 		) => {
 			const comments = [...state.comments];
 			let updatedComments: CommentType[];
@@ -75,7 +83,7 @@ const commentsSlice = createSlice({
 				});
 			} else {
 				updatedComments = comments.map((comment) => {
-					if (comment.id === action.payload.data.parentComment.id) {
+					if (comment.id === action.payload.parentComment!.id) {
 						const updatedReplies = comment.replies.map((reply) => {
 							if (reply.id === action.payload.data.id) {
 								return {

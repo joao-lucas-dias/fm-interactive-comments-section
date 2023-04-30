@@ -1,8 +1,9 @@
 import { ReactNode } from "react";
-import classes from "./Container.module.css";
+
+import shared_classes from "../../styles/shared.module.css";
 
 const Container: React.FC<{ children: ReactNode }> = (props) => {
-  return <div className={classes.container}>{props.children}</div>
+	return <div className={shared_classes.container}>{props.children}</div>;
 };
 
 export default Container;

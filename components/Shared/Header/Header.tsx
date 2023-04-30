@@ -2,6 +2,7 @@ import Image from "next/image";
 import { User } from "@/models/types";
 
 import classes from "./Header.module.css";
+import shared_classes from "../../../styles/shared.module.css";
 
 const Header: React.FC<{ user: User; loggedInUser: string; createdAt: string }> = (
 	props
@@ -11,7 +12,7 @@ const Header: React.FC<{ user: User; loggedInUser: string; createdAt: string }> 
 			<Image
 				src={props.user.image.webp}
 				alt="User profile picture."
-				className={classes.image}
+				className={shared_classes.image}
 				width={2000}
 				height={2000}
 			/>

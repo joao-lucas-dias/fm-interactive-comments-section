@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 
 import classes from "./Modal.module.css";
+import shared_classes from "../../styles/shared.module.css";
 
 interface ModalProps {
 	isOpen: boolean;
@@ -32,15 +33,24 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, onConfirmDelete }) => {
 			className={classes.background}
 			onClick={onClose && handleCloseModal}
 		>
-			<div id="modal-content" className={classes.container} ref={modalRef}>
+			<div
+				id="modal-content"
+				ref={modalRef}
+				className={shared_classes.container}
+				style={{ padding: "1.5em", borderRadius: "10px" }}
+			>
 				<p className={classes.header}>Delete comment</p>
-				<p className={classes.body}>
+				<p className={shared_classes.text}>
 					Are you sure you want to delete this comment? This will remove the comment and
 					can&apos;t be undone.
 				</p>
 				<div className={classes.actions}>
-					<button onClick={onClose} className={classes.cancel}>No, cancel</button>
-					<button onClick={onConfirmDelete} className={classes.delete}>Yes, delete</button>
+					<button onClick={onClose} className={classes.cancel}>
+						No, cancel
+					</button>
+					<button onClick={onConfirmDelete} className={classes.delete}>
+						Yes, delete
+					</button>
 				</div>
 			</div>
 		</div>

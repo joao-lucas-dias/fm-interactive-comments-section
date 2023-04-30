@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { deleteAction } from "@/store/commentsSlice";
 import Modal from "../UI/Modal";
 
-import classes from "./Reply.module.css";
+import shared_classes from "../../styles/shared.module.css";
 
 const Reply: React.FC<{
 	loggedInUser: User;
@@ -52,7 +52,7 @@ const Reply: React.FC<{
 				onClose={() => setShowDeleteModal(false)}
 				onConfirmDelete={deleteReplyHandler}
 			/>
-			<li className={classes.replying}>
+			<li className={shared_classes.replying}>
 				<Container>
 					<Header
 						loggedInUser={props.loggedInUser.username}

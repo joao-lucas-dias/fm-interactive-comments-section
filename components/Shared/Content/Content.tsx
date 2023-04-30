@@ -4,6 +4,7 @@ import { editAction } from "@/store/commentsSlice";
 import { CommentType } from "@/models/types";
 
 import classes from "./Content.module.css";
+import shared_classes from "../../../styles/shared.module.css";
 
 const Content: React.FC<{
 	type: "comment" | "reply";
@@ -14,15 +15,27 @@ const Content: React.FC<{
 	onContentUpdated: () => void;
 }> = (props) => {
 	const dispatch = useDispatch();
-	const [enteredText, setEnteredText] = useState(props.data.content);
+
+	const defaultValue: string =
+		props.type === "reply"
+			? `@${props.replyingTo} ${props.data.content}`
+			: props.data.content;
+	const [enteredText, setEnteredText] = useState(defaultValue);
 
 	const changeTextHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
 		setEnteredText(event.target.value);
 	};
 
 	const editContentHandler = async () => {
+		const updatedContent = enteredText.replace(`@${props.replyingTo} `, "");
+
 		dispatch(
-			editAction({ type: props.type, data: props.data, updatedContent: enteredText })
+			editAction({
+				type: props.type,
+				data: props.data,
+				parentComment: props.parentComment,
+				updatedContent: updatedContent
+			})
 		);
 
 		props.onContentUpdated();
@@ -39,7 +52,7 @@ const Content: React.FC<{
 				if (reply.id === props.data.id) {
 					return {
 						...reply,
-						content: enteredText
+						content: updatedContent
 					};
 				}
 				return reply;
@@ -67,26 +80,22 @@ const Content: React.FC<{
 			{props.editing ? (
 				<>
 					<textarea
-						defaultValue={
-							props.type === "reply"
-								? `@${props.replyingTo} ${props.data.content}`
-								: props.data.content
-						}
+						value={enteredText}
 						onChange={(event) => changeTextHandler(event)}
-						className={`${classes.body} ${classes.textarea}`}
+						className={`${classes.body} ${shared_classes.textarea}`}
 					></textarea>
 					<button
 						onClick={editContentHandler}
 						disabled={enteredText.length === 0}
-						className={classes.button}
+						className={shared_classes.button}
 					>
 						Update
 					</button>
 				</>
 			) : props.type === "comment" ? (
-				<p className={classes.body}>{props.data.content}</p>
+				<p className={`${shared_classes.text} ${classes.body}`}>{props.data.content}</p>
 			) : (
-				<p className={classes.body}>
+				<p className={`${shared_classes.text} ${classes.body}`}>
 					<span className={classes.reply_tag}>{`@${props.replyingTo} `}</span>
 					{props.data.content}
 				</p>

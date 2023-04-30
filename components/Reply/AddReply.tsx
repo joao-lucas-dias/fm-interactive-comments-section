@@ -5,7 +5,7 @@ import { ChangeEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addReplyAction } from "@/store/commentsSlice";
 
-import classes from "./AddReply.module.css";
+import shared_classes from "../../styles/shared.module.css";
 
 const AddReply: React.FC<{
 	loggedinUser: User;
@@ -13,7 +13,9 @@ const AddReply: React.FC<{
 	replyingTo: string;
 	onReplyAdded: () => void;
 }> = (props) => {
-	const [enteredText, setEnteredText] = useState("");
+	const defaultValue = `@${props.replyingTo}, `;
+
+	const [enteredText, setEnteredText] = useState(defaultValue);
 	const dispatch = useDispatch();
 
 	const { id, replies } = props.parentComment;
@@ -23,17 +25,18 @@ const AddReply: React.FC<{
 	};
 
 	const addReplyHandler = async () => {
+		const replyContent = enteredText.replace(`@${props.replyingTo}, `, "");
+
 		const newReply: ReplyType = {
 			id: `${id}_reply${replies.length + 1}`,
 			user: props.loggedinUser,
 			createdAt: "3 min ago",
 			replyingTo: props.replyingTo,
-			parentComment: props.parentComment,
-			content: enteredText.replace(`@${props.replyingTo}, `, ""),
+			content: replyContent,
 			score: 1
 		};
 
-		dispatch(addReplyAction(newReply));
+		dispatch(addReplyAction({ parentComment: props.parentComment, replyData: newReply }));
 
 		props.onReplyAdded();
 
@@ -58,18 +61,22 @@ const AddReply: React.FC<{
 	return (
 		<Container>
 			<textarea
-				defaultValue={`@${props.replyingTo}, `}
+				value={enteredText}
 				onChange={(event) => enterTextHandler(event)}
-				className={classes.textarea}
+				className={shared_classes.textarea}
 			></textarea>
 			<Image
 				src={props.loggedinUser.image.webp}
 				alt="User profile picture."
-				className={classes.image}
+				className={shared_classes.image}
 				width={2000}
 				height={2000}
 			/>
-			<button onClick={addReplyHandler} disabled={enteredText.replace(`@${props.replyingTo}, `, "").length === 0} className={classes.button}>
+			<button
+				onClick={addReplyHandler}
+				disabled={enteredText.replace(`@${props.replyingTo}, `, "").length === 0}
+				className={shared_classes.button}
+			>
 				Reply
 			</button>
 		</Container>

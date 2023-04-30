@@ -11,7 +11,7 @@ import Modal from "../UI/Modal";
 import { useDispatch } from "react-redux";
 import { deleteAction } from "@/store/commentsSlice";
 
-import classes from "./Comment.module.css";
+import shared_classes from "../../styles/shared.module.css";
 
 const Comment: React.FC<{
 	commentData: CommentType;
@@ -30,7 +30,7 @@ const Comment: React.FC<{
 		const response = await fetch(`/api/comments/${id}`, {
 			method: "DELETE"
 		});
-	
+
 		const data = await response.json();
 	};
 
@@ -42,8 +42,8 @@ const Comment: React.FC<{
 				onClose={() => setShowDeleteModal(false)}
 				onConfirmDelete={deleteCommentHandler}
 			/>
-			<li className={classes.wrapper}>
-				<div className={classes.replying}>
+			<li className={shared_classes.list}>
+				<div className={shared_classes.replying}>
 					<Container>
 						<Header
 							user={user}
@@ -78,7 +78,14 @@ const Comment: React.FC<{
 					)}
 				</div>
 				{props.commentData.replies.length > 0 && (
-					<ul key={`${id}_replies`} className={classes.replies_list}>
+					<ul
+						key={`${id}_replies`}
+						className={shared_classes.list}
+						style={{
+							paddingLeft: "1em",
+							borderLeft: "2px solid var(--color-neutral-light)"
+						}}
+					>
 						{replies.map((reply) => (
 							<Reply
 								key={reply.id}

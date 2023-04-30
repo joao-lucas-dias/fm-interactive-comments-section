@@ -6,11 +6,6 @@
 	align-items: center;
 }
 
-.image {
-	width: 35px;
-	height: 35px;
-}
-
 .user {
 	display: flex;
 	gap: 0.5em;
