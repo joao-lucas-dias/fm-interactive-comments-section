@@ -20,9 +20,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, onConfirmDelete }) => {
 	}, []);
 
 	const handleCloseModal = (event: React.MouseEvent<HTMLDivElement>) => {
-		console.log(event);
 		if (event.target === event.currentTarget) {
-			console.log("click");
 			onClose!();
 		}
 	};

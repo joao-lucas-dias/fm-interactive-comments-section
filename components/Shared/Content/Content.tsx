@@ -40,33 +40,47 @@ const Content: React.FC<{
 
 		props.onContentUpdated();
 
-		let updatedComment: CommentType;
+		// let updatedComment: CommentType;
 
-		if (props.type === "comment") {
-			updatedComment = {
-				...props.data,
-				content: enteredText
-			};
-		} else {
-			const updatedReplies = props.parentComment!.replies.map((reply) => {
-				if (reply.id === props.data.id) {
-					return {
-						...reply,
-						content: updatedContent
-					};
-				}
-				return reply;
-			});
+		// if (props.type === "comment") {
+		// 	updatedComment = {
+		// 		...props.data,
+		// 		content: enteredText
+		// 	};
+		// } else {
+		// 	const updatedReplies = props.parentComment!.replies.map((reply) => {
+		// 		if (reply.id === props.data.id) {
+		// 			return {
+		// 				...reply,
+		// 				content: updatedContent
+		// 			};
+		// 		}
+		// 		return reply;
+		// 	});
 
-			updatedComment = {
-				...props.parentComment!,
-				replies: updatedReplies
-			};
-		}
+		// 	updatedComment = {
+		// 		...props.parentComment!,
+		// 		replies: updatedReplies
+		// 	};
+		// }
+
+		const reqBody =
+			props.type === "comment"
+				? {
+						updateType: "edit_comment",
+						commentId: props.data.id,
+						updatedContent: updatedContent
+				  }
+				: {
+						updateType: "edit_reply",
+						commentId: props.parentComment!.id,
+						replyId: props.data.id,
+						updatedContent: updatedContent
+				  };
 
 		const response = await fetch("/api/comments", {
 			method: "PUT",
-			body: JSON.stringify(updatedComment),
+			body: JSON.stringify(reqBody),
 			headers: {
 				"Content-Type": "application/json"
 			}

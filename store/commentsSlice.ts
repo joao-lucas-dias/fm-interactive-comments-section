@@ -111,7 +111,7 @@ const commentsSlice = createSlice({
 			action: PayloadAction<{
 				type: "comment" | "reply";
 				id: string;
-				voteType: "upvote" | "downvote";
+				voteType: "inc" | "dec";
 			}>
 		) => {
 			const comments = [...state.comments];
@@ -124,20 +124,12 @@ const commentsSlice = createSlice({
 			const comment = comments.find((comment) => comment.id === commentId);
 
 			if (action.payload.type === "comment") {
-				if (action.payload.voteType === "upvote") {
-					comment!.score++;
-				} else {
-					comment!.score--;
-				}
+				comment!.score += action.payload.voteType === "inc" ? 1 : -1;
 			} else {
 				const replyId = action.payload.id;
 				const reply = comment!.replies.find((reply) => reply.id === replyId);
 
-				if (action.payload.voteType === "upvote") {
-					reply!.score++;
-				} else {
-					reply!.score--;
-				}
+				reply!.score += action.payload.voteType === "inc" ? 1 : -1;
 			}
 
 			const sortedComments = comments.sort(

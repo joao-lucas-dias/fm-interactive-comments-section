@@ -62,8 +62,6 @@ export const getStaticProps: GetStaticProps = async () => {
 	const data = await dataCollection.find().toArray();
 
 	const comments: CommentType[] = data.map((comment) => {
-		console.log(comment);
-
 		return {
 			id: comment._id.toString(),
 			user: comment.user,

@@ -27,15 +27,15 @@ const Reply: React.FC<{
 	const deleteReplyHandler = async () => {
 		dispatch(deleteAction({ id: id, type: "reply" }));
 
-		const parentComment: CommentType = props.parentComment;
-		const updatedComment: CommentType = {
-			...parentComment,
-			replies: parentComment.replies.filter((reply) => reply.id !== id)
+		const reqBody = {
+			updateType: "delete_reply",
+			commentId: props.parentComment.id,
+			replyId: id
 		};
 
 		const response = await fetch("/api/comments", {
 			method: "PUT",
-			body: JSON.stringify(updatedComment),
+			body: JSON.stringify(reqBody),
 			headers: {
 				"Content-Type": "application/json"
 			}

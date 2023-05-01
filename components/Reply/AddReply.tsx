@@ -40,16 +40,15 @@ const AddReply: React.FC<{
 
 		props.onReplyAdded();
 
-		const updatedReplies: ReplyType[] = [...replies, newReply];
-
-		const updatedComment: CommentType = {
-			...props.parentComment,
-			replies: updatedReplies
+		const reqBody = {
+			updateType: "add_reply",
+			commentId: id,
+			newReply: newReply
 		};
 
 		const response = await fetch("/api/comments", {
 			method: "PUT",
-			body: JSON.stringify(updatedComment),
+			body: JSON.stringify(reqBody),
 			headers: {
 				"Content-Type": "application/json"
 			}
