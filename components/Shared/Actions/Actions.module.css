@@ -6,3 +6,11 @@
   align-items: center;
   justify-content: flex-end;
 }
+
+@media (min-width: 1024px) {
+  .actions {
+    grid-row: 1/1;
+    grid-column: 3/4;
+    height: 100%;
+  }
+}

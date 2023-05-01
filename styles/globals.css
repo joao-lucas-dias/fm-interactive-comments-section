@@ -54,6 +54,18 @@ video {
 	max-width: 100%;
 }
 
+@media (min-width: 768px) {
+	body {
+		padding: 2em 7em;
+	}
+}
+
+@media (min-width: 1024px) {
+	body {
+		padding: 4em 10em;
+	}
+}
+
 @media (min-width: 1440px) {
 	body {
 		padding: 4em 22em;

@@ -36,3 +36,10 @@
 	font-weight: 400;
 	color: var(--color-neutral-dark);
 }
+
+@media (min-width: 1024px) {
+	.header {
+		grid-row: 1/2;
+		grid-column: 2/3;
+	}
+}
