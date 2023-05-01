@@ -31,4 +31,9 @@
     align-self: flex-start;
     padding: 1em .5em;
   }
+
+  .score_counter > button:hover path {
+    cursor: pointer;
+    fill: var(--color-primary-blue);
+  }
 }

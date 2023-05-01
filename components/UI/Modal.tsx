@@ -36,11 +36,11 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, onConfirmDelete }) => {
 			<div
 				id="modal-content"
 				ref={modalRef}
-				className={shared_classes.container}
+				className={classes.container}
 				style={{ padding: "1.5em", borderRadius: "10px" }}
 			>
 				<p className={classes.header}>Delete comment</p>
-				<p className={shared_classes.text}>
+				<p className={`${shared_classes.text} ${classes.text}`}>
 					Are you sure you want to delete this comment? This will remove the comment and
 					can&apos;t be undone.
 				</p>

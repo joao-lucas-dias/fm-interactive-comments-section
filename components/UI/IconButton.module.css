@@ -15,3 +15,25 @@
 .delete {
   color: var(--color-primary-red);
 }
+
+@media (min-width: 1024px) {
+  .wrapper:hover {
+    cursor: pointer;
+  }
+
+  .reply:hover, .edit:hover {
+    color: var(--color-primary-light-blue);
+  }
+
+  .delete:hover {
+    color: var(--color-primary-light-red);
+  }
+
+  .reply:hover path, .edit:hover path {
+    fill: var(--color-primary-light-blue);
+  }
+
+  .delete:hover path {
+    fill: var(--color-primary-light-red);
+  }
+}

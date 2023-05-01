@@ -12,10 +12,26 @@
 	padding-inline: 1em;
 }
 
+.container {
+	display: grid;
+	row-gap: 1em;
+	padding: 1em;
+	border-radius: 5px;
+	background-color: var(--color-neutral-white);
+}
+
+.container > * {
+	flex: 1;
+}
+
 .header {
 	font-size: 20px;
 	font-weight: 500;
 	color: var(--color-neutral-darker);
+}
+
+.text	{
+	max-width: 30ch;
 }
 
 .actions {
@@ -41,4 +57,18 @@
 
 .delete {
 	background-color: var(--color-primary-red);
+}
+
+@media (min-width: 768px) {
+	.actions > *:hover {
+		cursor: pointer;
+	}
+
+	.cancel:hover {
+		background-color: var(--color-neutral-light);
+	}
+
+	.delete:hover {
+		background-color: var(--color-primary-light-red);
+	}
 }
