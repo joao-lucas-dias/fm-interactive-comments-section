@@ -4,8 +4,6 @@
   width: max-content;
   display: flex;
   align-items: center;
-  gap: 1em;
-  padding: .65em .9em;
   border-radius: 10px;
   font-weight: 500;
   color: var(--color-primary-blue);
@@ -13,12 +11,20 @@
 }
 
 .score_counter > button {
-  height: 100%;
   background: none;
   border: none;
 }
 
+.score_counter > button:first-child {
+  padding: .65em .65em .65em 1em;
+}
+
+.score_counter > button:last-child {
+  padding: .65em 1em .65em .65em;
+}
+
 .score_counter > span {
+  padding: .65em 0em;
   width: 2ch;
   text-align: center;
 }
@@ -29,11 +35,26 @@
     grid-column: 1/1;
     flex-direction: column;
     align-self: flex-start;
-    padding: 1em .5em;
+  }
+
+  .score_counter > button:hover {
+    cursor: pointer;
   }
 
   .score_counter > button:hover path {
-    cursor: pointer;
     fill: var(--color-primary-blue);
+  }
+
+  .score_counter > button:first-child {
+    padding: 1em .5em 1em .5em;
+  }
+
+  .score_counter > span {
+    padding: 0em .5em;
+    width: 4ch;
+  }
+  
+  .score_counter > button:last-child {
+    padding: 1em .5em 1em .5em;
   }
 }
