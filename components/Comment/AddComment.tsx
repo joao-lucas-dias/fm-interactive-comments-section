@@ -20,7 +20,7 @@ const AddComment: React.FC<{
 	const addCommentHandler = async () => {
 		const newComment = {
 			user: props.loggedinUser,
-			createdAt: "10 min ago",
+			createdAt: new Date().toISOString(),
 			content: enteredText,
 			score: 1,
 			replies: []

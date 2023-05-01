@@ -30,7 +30,7 @@ const AddReply: React.FC<{
 		const newReply: ReplyType = {
 			id: `${id}_reply${replies.length + 1}`,
 			user: props.loggedinUser,
-			createdAt: "3 min ago",
+			createdAt: new Date().toISOString(),
 			replyingTo: props.replyingTo,
 			content: replyContent,
 			score: 1
