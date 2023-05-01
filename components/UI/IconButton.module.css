@@ -1,39 +1,42 @@
 .wrapper {
-  display: flex;
-  gap: .5em;
-  align-items: center;
-  text-transform: capitalize;
-  font-weight: 500;
-  background: none;
-  border: none;
+	display: flex;
+	gap: 0.5em;
+	align-items: center;
+	text-transform: capitalize;
+	font-weight: 500;
+	background: none;
+	border: none;
 }
 
-.reply, .edit {
-  color: var(--color-primary-blue);
+.reply,
+.edit {
+	color: var(--color-primary-blue);
 }
 
 .delete {
-  color: var(--color-primary-red);
+	color: var(--color-primary-red);
 }
 
 @media (min-width: 1024px) {
-  .wrapper:hover {
-    cursor: pointer;
-  }
+	.wrapper:hover {
+		cursor: pointer;
+	}
 
-  .reply:hover, .edit:hover {
-    color: var(--color-primary-light-blue);
-  }
+	.reply:hover,
+	.edit:hover {
+		color: var(--color-primary-light-blue);
+	}
 
-  .delete:hover {
-    color: var(--color-primary-light-red);
-  }
+	.delete:hover {
+		color: var(--color-primary-light-red);
+	}
 
-  .reply:hover path, .edit:hover path {
-    fill: var(--color-primary-light-blue);
-  }
+	.reply:hover path,
+	.edit:hover path {
+		fill: var(--color-primary-light-blue);
+	}
 
-  .delete:hover path {
-    fill: var(--color-primary-light-red);
-  }
+	.delete:hover path {
+		fill: var(--color-primary-light-red);
+	}
 }

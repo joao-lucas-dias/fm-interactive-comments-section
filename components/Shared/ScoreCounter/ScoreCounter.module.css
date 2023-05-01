@@ -1,60 +1,60 @@
 .score_counter {
-  grid-row-start: 3;
-  grid-column-start: 1;
-  width: max-content;
-  display: flex;
-  align-items: center;
-  border-radius: 10px;
-  font-weight: 500;
-  color: var(--color-primary-blue);
-  background-color: var(--color-neutral-lighter);
+	grid-row-start: 3;
+	grid-column-start: 1;
+	width: max-content;
+	display: flex;
+	align-items: center;
+	border-radius: 10px;
+	font-weight: 500;
+	color: var(--color-primary-blue);
+	background-color: var(--color-neutral-lighter);
 }
 
 .score_counter > button {
-  background: none;
-  border: none;
+	background: none;
+	border: none;
 }
 
 .score_counter > button:first-child {
-  padding: .65em .65em .65em 1em;
+	padding: 0.65em 0.65em 0.65em 1em;
 }
 
 .score_counter > button:last-child {
-  padding: .65em 1em .65em .65em;
+	padding: 0.65em 1em 0.65em 0.65em;
 }
 
 .score_counter > span {
-  padding: .65em 0em;
-  width: 2ch;
-  text-align: center;
+	padding: 0.65em 0em;
+	width: 2ch;
+	text-align: center;
 }
 
 @media (min-width: 1024px) {
-  .score_counter {
-    grid-row: 1/3;
-    grid-column: 1/1;
-    flex-direction: column;
-    align-self: flex-start;
-  }
+	.score_counter {
+		grid-row: 1/3;
+		grid-column: 1/1;
+		flex-direction: column;
+		align-self: flex-start;
+	}
 
-  .score_counter > button:hover {
-    cursor: pointer;
-  }
+	.score_counter > button:hover {
+		cursor: pointer;
+	}
 
-  .score_counter > button:hover path {
-    fill: var(--color-primary-blue);
-  }
+	.score_counter > button:hover path {
+		fill: var(--color-primary-blue);
+	}
 
-  .score_counter > button:first-child {
-    padding: 1em .5em 1em .5em;
-  }
+	.score_counter > button:first-child {
+		padding: 1em 0.5em 1em 0.5em;
+	}
 
-  .score_counter > span {
-    padding: 0em .5em;
-    width: 4ch;
-  }
-  
-  .score_counter > button:last-child {
-    padding: 1em .5em 1em .5em;
-  }
+	.score_counter > span {
+		padding: 0em 0.5em;
+		width: 4ch;
+	}
+
+	.score_counter > button:last-child {
+		padding: 1em 0.5em 1em 0.5em;
+	}
 }

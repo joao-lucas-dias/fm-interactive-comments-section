@@ -1,7 +1,7 @@
 import { loadComments } from "@/store/commentsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Head from "next/head";
 import { GetStaticProps } from "next";
 import { MongoClient } from "mongodb";
@@ -9,7 +9,7 @@ import { CommentType, ReplyType, User } from "@/models/types";
 import AddComment from "@/components/Comment/AddComment";
 import CommentsList from "@/components/Comment/CommentsList";
 
-import classes from "../styles/HomePage.module.css";
+import shared_classes from "../styles/shared.module.css";
 
 const LOGGEDIN_USER: User = {
 	image: {
@@ -36,7 +36,7 @@ const HomePage: React.FC<{ comments: CommentType[] }> = (props) => {
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<link rel="icon" href="/images/favicon-32x32.png" />
 			</Head>
-			<main className={classes.app}>
+			<main className={shared_classes.list}>
 				<CommentsList comments={comments} loggedInUser={LOGGEDIN_USER} />
 				<AddComment loggedinUser={LOGGEDIN_USER} />
 			</main>

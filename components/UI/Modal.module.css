@@ -4,7 +4,7 @@
 	left: 0;
 	right: 0;
 	bottom: 0;
-  height: 100dvh;
+	height: 100dvh;
 	background-color: rgba(0, 0, 0, 0.5);
 	z-index: 9999;
 	display: grid;
@@ -30,13 +30,13 @@
 	color: var(--color-neutral-darker);
 }
 
-.text	{
+.text {
 	max-width: 30ch;
 }
 
 .actions {
 	display: flex;
-	gap: .75em;
+	gap: 0.75em;
 }
 
 .actions > * {
@@ -45,7 +45,7 @@
 	font-size: 17px;
 	font-weight: 500;
 	line-height: 1;
-	padding: .9em 1em;
+	padding: 0.9em 1em;
 	border: none;
 	border-radius: 10px;
 	color: var(--color-neutral-white);
