@@ -11,6 +11,7 @@ import Modal from "../UI/Modal";
 import { useDispatch } from "react-redux";
 import { deleteAction } from "@/store/commentsSlice";
 
+import classes from "./Comment.module.css";
 import shared_classes from "../../styles/shared.module.css";
 
 const Comment: React.FC<{
@@ -80,11 +81,7 @@ const Comment: React.FC<{
 				{props.commentData.replies.length > 0 && (
 					<ul
 						key={`${id}_replies`}
-						className={shared_classes.list}
-						style={{
-							paddingLeft: "1em",
-							borderLeft: "2px solid var(--color-neutral-light)"
-						}}
+						className={`${shared_classes.list} ${classes.replies_list}`}
 					>
 						{replies.map((reply) => (
 							<Reply

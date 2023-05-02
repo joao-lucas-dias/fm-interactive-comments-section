@@ -1,0 +1,11 @@
+.replies_list {
+	padding-left: 1em;
+	border-left: 2px solid var(--color-neutral-light);
+}
+
+@media (min-width: 1024px) {
+  .replies_list {
+    margin-left: 2em;
+    padding-left: 2em;
+  }
+}
