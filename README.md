@@ -34,4 +34,4 @@ Users should be able to:
 
 ## Demo
 
-- Live Site URL: https://interactive-comments-section-qqazfytkg-joao-lucas-dias.vercel.app/
+- Live Site URL: https://interactive-comments-section-pumxy5k43-joao-lucas-dias.vercel.app/
